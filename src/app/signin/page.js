@@ -9,7 +9,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-const LOCAL_URL = process.env.NEXT_PRODUCTION_API_URL;
+const LOCAL_URL = process.env.NEXT_PUBLIC_PRODUCTION_API_URL;
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
