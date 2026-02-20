@@ -44,7 +44,9 @@ const DashboardCommon = () => {
     console.log(statsData, "statsData");
 
     useEffect(() => {
+        debugger
         const getStats = async () => {
+            debugger
             try {
                 debugger
                 const data = await fetchUserSummary();
@@ -53,6 +55,7 @@ const DashboardCommon = () => {
                     setStatsData(
                         data.map((item) => ({
                             title: item.title,
+                            percentage: item.percentage,
                             count: item.count,
                             icon: iconMap[item.value] || Users,
                             color: colorMap[item.value] || "blue",

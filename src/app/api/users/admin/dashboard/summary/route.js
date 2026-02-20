@@ -20,7 +20,6 @@ const calcUserCount = (acc, user, userBasedPercentage) => {
     const percentageMap = Object.fromEntries(
         userBasedPercentage.map((item) => [item.role, item.percentage])
     );
-    console.log(percentageMap, "percentageMap");
 
     const accMap = Object.fromEntries(
         acc.map((item) => [item.value, item])
@@ -38,7 +37,7 @@ const calcUserCount = (acc, user, userBasedPercentage) => {
 
 const getUserCount = (users) => {
     return users.reduce((acc, user) => {
-        acc[user.role] = (acc[user.role] || 0) + 1;
+        (acc[user.role] = (acc[user.role] || 0) + 1);
         return acc;
     }, {});
 }
@@ -46,6 +45,9 @@ const getUserCount = (users) => {
 const getPercentage = (currentMonthUsers, lastMonthUsers) => {
     const lastMonthUserCount = getUserCount(lastMonthUsers);
     const currentMonthUserCount = getUserCount(currentMonthUsers);
+    console.log(lastMonthUserCount, "lastMonthUserCount");
+    console.log(currentMonthUserCount, "currentMonthUserCount");
+
 
     const roles = ["student", "teacher", "admin", "parent"];
 
@@ -75,10 +77,12 @@ export async function GET(req) {
 
         const [lastMonthUsers, currentMonthUsers] = await Promise.all([
             User.find({
-                createdAt: { $gte: lastMonthStart, $lte: lastMonthEnd }
+                createdAt: { $gte: lastMonthStart, $lte: lastMonthEnd },
+                status: "approved"
             }),
             User.find({
-                createdAt: { $gte: currentMonth.toString(), $lte: today.toString() }
+                createdAt: { $gte: currentMonth.toString(), $lte: today.toString() },
+                status: "approved"
             })
         ]);
 

@@ -16,6 +16,12 @@ export const INITIAL_TOTAL_USER_SUMMARY_OBJ = [{
     percentage: 0
 },
 {
+    title: "Total Parents",
+    value: "parent",
+    count: 0,
+    percentage: 0
+},
+{
     title: "Total Teachers",
     value: "teacher",
     count: 0,
@@ -30,12 +36,6 @@ export const INITIAL_TOTAL_USER_SUMMARY_OBJ = [{
 {
     title: "Total Super Admins",
     value: "superAdmin",
-    count: 0,
-    percentage: 0
-},
-{
-    title: "Total Parents",
-    value: "parent",
     count: 0,
     percentage: 0
 },

@@ -9,7 +9,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-const LOCAL_URL = process.env.NEXT_PUBLIC_PRODUCTION_API_URL || '';
+
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -83,7 +83,7 @@ const Login = () => {
 
         setIsOtpLoading(true);
         try {
-            const res = await axios.post(`${LOCAL_URL}/api/auth/verify-otp`, {
+            const res = await axios.post(`/api/auth/verify-otp`, {
                 otp: fullOtp
             }, {
                 headers: {
@@ -115,7 +115,7 @@ const Login = () => {
             setIsLoading(true);
             try {
                 const token = credentialResponse.access_token;
-                await axios.post(`${LOCAL_URL}/api/auth/google`, { token });
+                await axios.post(`/api/auth/google`, { token });
                 toast.success("Logged in with Google!");
             } catch (error) {
                 toast.error(error.response?.data?.message || "Google Login Failed");
@@ -132,7 +132,7 @@ const Login = () => {
         e.preventDefault();
         setIsLoading(true);
         try {
-            const res = await axios.post(`${LOCAL_URL}/api/auth/signin`, {
+            const res = await axios.post(`/api/auth/signin`, {
                 email,
                 password,
             });
@@ -165,7 +165,7 @@ const Login = () => {
         setIsLoading(true);
 
         try {
-            const res = await axios.post(`${LOCAL_URL}/api/auth/forgot-password`, {
+            const res = await axios.post(`/api/auth/forgot-password`, {
                 email: resetEmail
             });
 

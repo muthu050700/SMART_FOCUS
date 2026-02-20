@@ -52,8 +52,9 @@ const variants = {
     }
 };
 
-const StatsCard = ({ title, count, icon: Icon, color = "blue", index }) => {
+const StatsCard = ({ title, count, percentage, icon: Icon, color = "blue", index }) => {
     const style = variants[color] || variants.blue;
+    console.log(percentage, "percentage");
 
     return (
         <motion.div
@@ -87,12 +88,12 @@ const StatsCard = ({ title, count, icon: Icon, color = "blue", index }) => {
                         {count.toLocaleString()}
                     </h3>
 
-                    <div className="mt-1 flex items-center gap-1.5 text-[10px] font-bold">
+                    {["students", "teachers", "admins", "parents"].includes(title.split(" ")[1].toLowerCase()) && <div className="mt-1 flex items-center gap-1.5 text-[12px] font-bold">
                         <span className="px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 flex items-center gap-1 border border-emerald-500/20">
-                            ↑ 12.5%
+                            ↑ +{percentage}%
                         </span>
                         <span className="text-zinc-500 dark:text-zinc-400">vs last month</span>
-                    </div>
+                    </div>}
                 </div>
 
                 <div className={`p-2.5 rounded-lg ${style.iconUser} shadow-sm group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 ring-1 ring-inset ring-black/5 dark:ring-white/10`}>
