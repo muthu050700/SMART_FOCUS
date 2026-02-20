@@ -4,7 +4,7 @@ import crypto from "crypto";
 import { validateForgotPassword } from "@/utils/validator";
 import { sendEmail } from "@/utils/sendEmail";
 
-const LOCAL_URL = process.env.NEXT_PUBLIC_PRODUCTION_API_URL;
+const LOCAL_URL = process.env.NEXT_PUBLIC_PRODUCTION_API_URL || '';
 
 export async function POST(req) {
     try {
