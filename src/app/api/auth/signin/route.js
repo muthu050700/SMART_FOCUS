@@ -82,7 +82,7 @@ export async function POST(req) {
             user.hashedOtp = hashedOtp;
             user.otpExpires = otpExpires;
 
-            sendEmail({
+            await sendEmail({
                 to: user.email,
                 subject: "OTP for Admin login",
                 html: `
