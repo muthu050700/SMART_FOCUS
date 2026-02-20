@@ -1,3 +1,7 @@
+import { handleCors, handleCorsOptions } from '@/utils/cors';
+export async function OPTIONS() {
+    return handleCorsOptions();
+}
 import { OAuth2Client } from "google-auth-library";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
@@ -18,10 +22,7 @@ export async function POST(req) {
         const payload = await response_google.json();
 
         if (!payload.email) {
-            return NextResponse.json(
-                { message: "Failed to fetch user info from Google" },
-                { status: 400 }
-            );
+            return handleCors(req, { message: "Failed to fetch user info from Google" }, 400);
         }
 
         const { email, name, sub } = payload;
@@ -54,12 +55,9 @@ export async function POST(req) {
             "same-origin-allow-popups"
         );
 
-        return response;
+        return handleCors(req, { token: appToken, user }, 200);
 
     } catch (error) {
-        return NextResponse.json(
-            { message: error.message },
-            { status: 500 }
-        );
+        return handleCors(req, { message: error.message }, 500);
     }
 }

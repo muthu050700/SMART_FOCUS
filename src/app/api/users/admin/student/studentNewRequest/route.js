@@ -1,3 +1,7 @@
+import { handleCors, handleCorsOptions } from '@/utils/cors';
+export async function OPTIONS() {
+    return handleCorsOptions();
+}
 import { connectDB } from "@/lib/db";
 import User from "@/models/user";
 import { validateAdmin } from "@/utils/validator";
@@ -21,8 +25,8 @@ export async function GET(req) {
                 mobileNo: request.mobileNo
             })
         })
-        return Response.json({ success: true, data: data }, { status: 200 });
+        return handleCors(req, { success: true, data: data }, 200);
     } catch (err) {
-        return Response.json({ message: err.message }, { status: 500 });
+        return handleCors(req, { message: err.message }, 500);
     }
 }

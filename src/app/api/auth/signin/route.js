@@ -1,3 +1,4 @@
+
 import { connectDB } from "@/lib/db";
 import User from "@/models/user";
 import bcrypt from "bcrypt";
@@ -5,6 +6,10 @@ import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
 import { validateLogin } from "@/utils/validator";
 import { sendEmail } from "@/utils/sendEmail";
+import { handleCors, handleCorsOptions } from '@/utils/cors';
+export async function OPTIONS() {
+    return handleCorsOptions();
+}
 
 
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -106,6 +111,6 @@ export async function POST(req) {
         response.cookies.set("isAuth", true, { httpOnly: false, expires: new Date(Date.now() + 24 * 60 * 60 * 1000) });
         return response;
     } catch (error) {
-        return Response.json({ success: false, message: error.message }, { status: 500 });
+        return handleCors(req, { success: false, message: error.message }, 500);
     }
 }

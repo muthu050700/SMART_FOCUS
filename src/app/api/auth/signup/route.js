@@ -1,3 +1,7 @@
+import { handleCors, handleCorsOptions } from '@/utils/cors';
+export async function OPTIONS() {
+    return handleCorsOptions();
+}
 import { connectDB } from "@/lib/db";
 import { validateSignUp } from "@/utils/validator";
 import { createUser } from "@/lib/createUser";
@@ -12,8 +16,8 @@ export async function POST(req) {
         console.log(user);
 
         await user.save();
-        return Response.json({ message: "User Created Successfully" }, { status: 200 });
+        return handleCors(req, { message: "User Created Successfully" }, 200);
     } catch (error) {
-        return Response.json({ message: error.message }, { status: 500 })
+        return handleCors(req, { message: error.message }, 500);
     }
 }

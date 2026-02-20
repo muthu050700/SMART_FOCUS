@@ -1,3 +1,7 @@
+import { handleCors, handleCorsOptions } from '@/utils/cors';
+export async function OPTIONS() {
+    return handleCorsOptions();
+}
 import { connectDB } from "@/lib/db";
 import User from "@/models/user";
 import jwt from "jsonwebtoken";
@@ -95,6 +99,6 @@ export async function POST(req) {
             return Response.json({ success: false, message: "OTP is expired" }, { status: 400 });
         }
 
-        return Response.json({ success: false, message: error.message }, { status: 500 });
+        return handleCors(req, { success: false, message: error.message }, 500);
     }
 }

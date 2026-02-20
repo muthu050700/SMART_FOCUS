@@ -1,3 +1,7 @@
+import { handleCors, handleCorsOptions } from '@/utils/cors';
+export async function OPTIONS() {
+    return handleCorsOptions();
+}
 import { createUser } from "@/lib/createUser";
 import { connectDB } from "@/lib/db";
 import { validateAdmin, validateSignUp } from "@/utils/validator";
@@ -14,8 +18,8 @@ export async function POST(req) {
 
         await user.save();
 
-        return Response.json({ message: "Admin Created Successfully" }, { status: 200 });
+        return handleCors(req, { message: "Admin Created Successfully" }, 200);
     } catch (err) {
-        return Response.json({ message: err.message }, { status: 500 });
+        return handleCors(req, { message: err.message }, 500);
     }
 }

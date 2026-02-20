@@ -1,3 +1,7 @@
+import { handleCors, handleCorsOptions } from '@/utils/cors';
+export async function OPTIONS() {
+    return handleCorsOptions();
+}
 import { connectDB } from "@/lib/db";
 import User from "@/models/user";
 import { INITIAL_TOTAL_USER_SUMMARY_OBJ } from "@/utils/constant";
@@ -110,8 +114,8 @@ export async function GET(req) {
             return acc;
         }, initialAcc);
 
-        return Response.json({ success: true, data: { userCountTotalSummary: total } }, { status: 200 });
+        return handleCors(req, { success: true, data: { userCountTotalSummary: total } }, 200);
     } catch (err) {
-        return Response.json({ message: err.message }, { status: 500 });
+        return handleCors(req, { message: err.message }, 500);
     }
 }
